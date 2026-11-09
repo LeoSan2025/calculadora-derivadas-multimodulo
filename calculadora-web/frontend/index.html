@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora</title>
+  <link rel="stylesheet" href="style/style.css" />
+</head>
+
+<body>
+  <div class="contenedor">
+    <header class="header">
+      <h1 class="header__text">Calculadora<h1>
+    </header>
+
+    <input type="checkbox" class="nav__checkbox" id="nav__checkbox" />
+    <input type="checkbox" class="aside__checkbox" id="aside__checkbox" />
+
+    <nav class="nav__contenedor">
+      <label for="nav__checkbox" class="nav__label--button">
+        <span class="nav__span--icon"></span>
+      </label>
+
+      <div class="nav">
+        <ul class="nav__ul">
+          <li class="nav__item">
+            <a href="index.html" class="nav__link">
+              <p class="nav__link--text">Calculadora</p>
+            </a>
+          </li>
+          <li class="nav__item"><a href="graphic.html" class="nav__link">
+              <p class="nav__link--text">Graficar</p>
+            </a></li>
+          <li class="nav__item">
+            <a href="configuration.html" class="nav__link">
+              <p class="nav__link--text">Configuración</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <label for="aside__checkbox" class="aside__label--button" id="aside__checkbox">
+        <span class="aside__icon">
+          <p class="aside__icon--text">Historial</p>
+        </span>
+      </label>
+    </nav>
+
+    <main class="main__contenedor">
+      <div class="main__overlay"></div>
+      <div class="main">
+        <!-- --- Intput - Output Section --- -->
+        <label class="calculadora__label--IO">
+          <textarea name="calculadora__IO--textarea" id="calculadora__IO--textarea" class="calculadora__IO--textarea"
+            placeholder="0" maxlength="150" rows="2"></textarea>
+        </label>
+
+        <!-- --- Buttons Section --- -->
+        <section class="buttons__section">
+          <div class="buttons__fixed">
+            <div class="buttons__fixed--toolbar">
+              <button class="button--fixed" translate="no">abc</button>
+              <button class="button--fixed" translate="no">←</button>
+              <button class="button--fixed" translate="no">→</button>
+              <button class="button--fixed" translate="no">⏎</button>
+              <button class="button--fixed" translate="no">C</button>
+            </div>
+            <div class="buttons__fixed--options">
+              <button class="button--fixed" translate="no">+ -<br>* /</button>
+              <button class="button--fixed" translate="no"></button>
+              <button class="button--fixed" translate="no"></button>
+              <button class="button--fixed" translate="no"></button>
+              <button class="button--fixed" translate="no"></button>
+            </div>
+          </div>
+          <div class="buttons__overlaid">
+            <div class="buttons__overlaid--layer">
+              <button class="calculadora--button" translate="no">( )</button>
+              <button class="calculadora--button" translate="no">□<sup>□</sup></button>
+              <button class="calculadora--button" translate="no">√</button>
+              <button class="calculadora--button" translate="no"><sup>□</sup>⁄<sub>□</button>
+              <button class="calculadora--button" translate="no">÷</button>
+              <button class="calculadora--button" translate="no">|□|</button>
+              <button class="calculadora--button" translate="no">7</button>
+              <button class="calculadora--button" translate="no">8</button>
+              <button class="calculadora--button" translate="no">9</button>
+              <button class="calculadora--button" translate="no">×</button>
+              <button class="calculadora--button" translate="no">x</button>
+              <button class="calculadora--button" translate="no">4</button>
+              <button class="calculadora--button" translate="no">5</button>
+              <button class="calculadora--button" translate="no">6</button>
+              <button class="calculadora--button" translate="no">-</button>
+              <button class="calculadora--button" translate="no">π</button>
+              <button class="calculadora--button" translate="no">1</button>
+              <button class="calculadora--button" translate="no">2</button>
+              <button class="calculadora--button" translate="no">3</button>
+              <button class="calculadora--button" translate="no">+</button>
+              <button class="calculadora--button" translate="no">e</button>
+              <button class="calculadora--button" translate="no"><sup>+</sup>⁄<sub>-</button>
+              <button class="calculadora--button" translate="no">0</button>
+              <button class="calculadora--button" translate="no">,</button>
+              <button class="calculadora--button" translate="no">=</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <aside class="aside__historial">
+      <div class="aside__historial--contenido">
+        <div class="aside__historial--header">
+          <label for="aside__checkbox" class="aside__close--button">
+            <span class="aside__icon--close">→</span>
+          </label>
+          <h2 class="aside__h2">Historial</h2>
+        </div>
+
+        <ul class="aside__historial--ul">
+          <li class="aside__historial--item">Elemento 1</li>
+          <li class="aside__historial--item">Elemento 2</li>
+          <li class="aside__historial--item">Elemento 3</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>

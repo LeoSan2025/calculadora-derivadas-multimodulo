@@ -1,0 +1,804 @@
+/*=== VARIABLES GLOBALES ===*/
+:root {
+    /* --- COLORES --- */
+    --primary-color: #2f2f2f;
+    --secondary-color: #f3bd68;
+    --button-color: #00000008;
+    --text-color: #111111;
+    --background-color: #00000009;
+    /*
+    ffcb74
+    c7843b
+    */
+
+    /* --- FUENTES ---*/
+    --desktop-link-font: 22px;
+    --tablet-link-font: 20px;
+    --phone-link-font: 18px --desktop-textarea: 30px;
+    --tablet-textarea: 24px;
+    --phone-textarea: 20px;
+
+    --desktop-font: 22px;
+    --tablet-font: 20px;
+    --phone-font: 16px;
+}
+
+/*==== ESTILOS BASE===*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    height: 100dvh;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    min-width: 365px;
+}
+
+body,
+header,
+main,
+aside,
+button,
+div {
+    box-sizing: border-box;
+}
+
+/*=== Contenedor Principal MOBILE FIRST ===*/
+
+/* === LAYOUT PRINCIPAL CON FALLBACK FLEXBOX === */
+.contenedor {
+    min-width: 100%;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* === GRID PARA NAVEGADORES MODERNOS === */
+@supports(display: grid) {
+    body {
+        display: block;
+        overflow-x: hidden;
+    }
+
+    .contenedor {
+        display: grid;
+        grid-template-rows: 45px 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "header"
+            "main";
+        height: 100dvh;
+        overflow: hidden;
+
+    }
+}
+
+/*==== COMPONENTES MOBILE FIRST ====*/
+
+/* --- HEADER SECTION --- */
+.header {
+    grid-area: header;
+    background-color: var(--primary-color);
+    height: 30px;
+    width: 100%;
+    margin: auto 0;
+    z-index: 2000;
+}
+
+.header__text {
+    display: inline-flex;
+    color: #ffffff;
+    width: 100%;
+    text-decoration: none;
+    font-size: 16px;
+    background-color: transparent;
+    margin: 7px auto 0 auto;
+    padding-left: 10px;
+}
+
+/* --- NAV SECTION ---*/
+.nav__contenedor {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 50px;
+    position: relative;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* --- MENÚ HAMBURGUESA Y MENÚ PRINCIPAL --- */
+.nav__checkbox {
+    display: none;
+}
+
+.nav__label--button {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    padding: 10px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 10px;
+}
+
+.nav__span--icon {
+    position: relative;
+    display: block;
+    background: #000;
+    width: 25px;
+    height: 3px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.nav__span--icon::before,
+.nav__span--icon::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 3px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background-color: #000;
+}
+
+.nav__span--icon::before {
+    transform: translateY(-8px);
+}
+
+.nav__span--icon::after {
+    transform: translateY(8px);
+}
+
+.nav__checkbox:checked~.nav__contenedor>.nav__label--button>.nav__span--icon {
+    background-color: transparent;
+}
+
+.nav__checkbox:checked~.nav__contenedor>.nav__label--button>.nav__span--icon::before {
+    transform: rotate(45deg);
+}
+
+.nav__checkbox:checked~.nav__contenedor>.nav__label--button>.nav__span--icon::after {
+    transform: rotate(-45deg);
+}
+
+/* --- Menú principal --- */
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav__ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 0;
+    margin-block: 0;
+    padding-inline: 0;
+    height: 100%;
+}
+
+.nav__item {
+    flex: 1;
+    text-align: center;
+}
+
+.nav__link {
+    display: block;
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    padding: 0 20px;
+    transform: translateY(50%);
+    border-radius: 0;
+    text-align: left;
+}
+
+.nav__link:hover {
+    opacity: 0.5;
+}
+
+/* === MEDIA QUERIES (SOLO PARA EL MENÚ HAMBURGUESA) === */
+@media(max-width: 767px) {
+    .nav__contenedor {
+        max-height: 65px;
+    }
+
+    .nav__label--button {
+        display: flex;
+    }
+
+    .nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        flex-direction: column;
+        z-index: 1000;
+        width: 100%;
+        background-color: var(--secondary-color);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-10px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .nav__ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav__item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
+    }
+
+    .nav__link {
+        padding: 15px 20px;
+        border-radius: 0;
+        text-align: left;
+    }
+
+    .nav__link:hover {
+        transform: none;
+    }
+
+
+    .nav__checkbox:checked~.nav__contenedor>.nav {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* --- MAIN SECTION --- */
+.main__contenedor {
+    grid-area: main;
+    width: 100%;
+    padding: 0;
+    padding-top: 10px;
+    margin: 0 auto;
+}
+
+.main {
+    overflow: auto;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    gap: 0;
+}
+
+.main__overlay {
+    /*Es solo para ocultar el contenido principal*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: #000000;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* --- Intput - Output SubSection --- */
+.calculadora__label--IO {
+    width: 100%;
+    height: 35%;
+    padding: 2px 10px;
+}
+
+.calculadora__IO--textarea {
+    box-sizing: border-box;
+    font-family: sans-serif;
+    color: #000000;
+    background-color: transparent;
+    display: block;
+    min-height: 50px;
+    height: 100%;
+    width: 100%;
+    border: none;
+    text-align: right;
+    cursor: text;
+    resize: none;
+    padding: 4px;
+}
+
+.calculadora__IO--textarea:focus {
+    outline: none;
+    outline: 2px solid var(--secondary-color);
+}
+
+/* === BUTTONS SECTION === */
+.buttons__section {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(60px, auto));
+    grid-template-rows: repeat(7, minmax(20px, 60px));
+    place-items: center center;
+    margin: auto;
+    gap: 4px;
+    padding: 6px 4px;
+    width: 100%;
+    height: 65%;
+}
+
+/* --- Buttons Fixed --- */
+.buttons__fixed {
+    grid-column: 1/-1;
+    grid-row: 1/3;
+    width: 100%;
+    height: 100%;
+}
+
+.buttons__fixed--toolbar {
+    height: 100%;
+    width: 100%;
+}
+
+.buttons__fixed--options {
+    height: 100%;
+    width: 100%;
+}
+
+@supports(grid-template-columns: subgrid) {
+    .buttons__fixed {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
+    }
+
+    .buttons__fixed--toolbar {
+        grid-column: 1/-1;
+        grid-row: 1/2;
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
+    }
+
+    .buttons__fixed--options {
+        grid-column: 1/-1;
+        grid-row: 2/3;
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
+    }
+}
+
+/* --- Capas de Botones Superpuestas --- */
+.buttons__overlaid {
+    grid-column: 1/-1;
+    grid-row: 3/-1;
+    width: 100%;
+    height: 100%;
+}
+
+.buttons__overlaid--layer {
+    height: 100%;
+    width: 100%;
+}
+
+/* --- Estilo de los botones --- */
+.button--fixed,
+.calculadora--button {
+    color: #000;
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+@supports(grid-template-columns: subgrid) {
+    .buttons__overlaid {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
+    }
+
+    .buttons__overlaid--layer {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-template-rows: subgrid;
+        grid-column: 1/-1;
+        grid-row: 1/-1;
+    }
+}
+
+/* --- HISTORIAL SECTION --- */
+.aside__historial {
+    position: fixed;
+    top: 5px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    background-color: #fff;
+    width: 0;
+    transform: translateX(100%);
+    min-height: 100dvh;
+    padding-left: 0;
+    padding-right: 0;
+    opacity: 0;
+    transition: width 0.3s ease, opacity 0.3s ease, padding 0.3s ease, transform 0.3s ease;
+}
+
+.aside__checkbox {
+    display: none;
+}
+
+.aside__label--button {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    margin: 0 10px;
+}
+
+.aside__icon {
+    position: relative;
+    display: block;
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    border: 1px solid #000;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.aside__icon:hover {
+    opacity: 0.5;
+}
+
+.aside__checkbox:checked~.aside__historial {
+    transform: translateX(0);
+    opacity: 1;
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 40%;
+}
+
+.aside__checkbox:checked~.main__contenedor>.main__overlay {
+    visibility: visible;
+    opacity: 0.59;
+}
+
+.aside__close--button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.aside__icon--close {
+    position: relative;
+    display: block;
+    width: 25px;
+    height: 4px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+
+
+.aside__icon--close::before,
+.aside__icon--close::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 3px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background-color: #000000;
+}
+
+.aside__icon--close::before {
+    transform: translateY(-8px);
+    transform: rotate(45deg);
+}
+
+.aside__icon--close::after {
+    transform: translateY(8px);
+    transform: rotate(-45deg);
+}
+
+.aside__icon--text {
+    font-weight: 500;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.aside__historial--contenido {
+    position: absolute;
+    display: flex;
+    top: 40px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+}
+
+.aside__h2 {
+    text-align: center;
+    padding: 0 0 20px 0;
+
+}
+
+.aside__historial--ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    list-style: none;
+    width: 100%;
+}
+
+.aside__historial--item {
+    display: block;
+    flex: 1;
+    text-align: center;
+    width: auto;
+    padding: 0 10px;
+}
+
+/*==== MEDIA QUERIES  ====*/
+
+/*===== Mobile =====*/
+@media (max-width: 767px) {
+    @supports (display: grid) {
+        .contenedor {
+            grid-template-areas:
+                "header"
+                "nav"
+                "main";
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto 1fr;
+        }
+    }
+
+    .contenedor {
+        overflow-x: hidden;
+    }
+
+    .main__contenedor {
+        display: flex;
+        flex-direction: column;
+        max-width: 100vw;
+        margin: 0;
+    }
+
+    .calculadora__IO--textarea {
+        font-size: var(--phone-textarea);
+    }
+
+    .calculadora__funciones--elemento {
+        font-size: var(--phone-font);
+    }
+
+    .nav__link {
+        font-size: var(--phone-link-font);
+    }
+
+    .aside__icon--text {
+        display: none;
+    }
+
+    .aside__label--button {
+        display: flex;
+    }
+
+    .aside__label--button:active {
+        background-color: transparent;
+    }
+
+    /*Botones de la calculadora*/
+    .calculadora--button {
+        font-size: var(--phone-font);
+    }
+}
+
+/*===== Tablet =====*/
+@media (min-width: 767px) and (max-width: 1023px) {
+    @supports (display: grid) {
+        .contenedor {
+            grid-template-areas:
+                "header"
+                "nav"
+                "main";
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto 1fr;
+        }
+    }
+
+    .nav__contenedor {
+        display: inline-flex;
+        flex: 1;
+    }
+
+    .nav {
+        width: 80%;
+        flex-direction: row;
+    }
+
+    .nav__ul {
+        flex-direction: row;
+        align-items: baseline;
+        width: 100%;
+    }
+
+    .nav__link {
+        font-size: var(--tablet-link-font);
+    }
+
+    .aside__label--button {
+        width: 20%;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        position: static;
+        transform: translateY(0);
+    }
+
+    .aside__icon {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 0%;
+        width: 100%;
+        height: 100%;
+    }
+
+    .aside__icon--text {
+        display: inline;
+        color: #000;
+        text-align: center;
+        font-size: var(--tablet-link-font);
+    }
+
+    .main__contenedor {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .calculadora__IO--textarea {
+        font-size: var(--tablet-textarea);
+    }
+
+    /*Botones de la calculadora*/
+    .calculadora--button {
+        font-size: var(--tablet-font);
+    }
+}
+
+/*===== Desktop =====*/
+@media (min-width: 1024px) {
+    @supports (display: grid) {
+        .contenedor {
+            grid-template-areas:
+                "header"
+                "nav"
+                "main";
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto 1fr;
+        }
+    }
+
+    .nav__contenedor {
+        grid-area: nav;
+        height: 50px;
+        width: 100%;
+    }
+
+    .nav {
+        height: 100%;
+        width: 100%;
+    }
+
+    .nav__ul {
+        position: static;
+        display: inline-flex;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .nav__link {
+        text-align: center;
+        font-size: var(--desktop-link-font);
+    }
+
+    /*Botón de Historial*/
+    .aside__label--button {
+        width: 20%;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        position: static;
+        transform: translateY(0);
+    }
+
+    .aside__icon {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 0%;
+        width: 100%;
+        height: 100%;
+    }
+
+    .aside__icon--text {
+        display: inline;
+        color: #000;
+        text-align: center;
+        font-size: var(--desktop-link-font);
+    }
+
+    /* --- Main Section --- */
+    .main__contenedor {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        width: 80%;
+        gap: 30px;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    /*Entrada de Usuario*/
+    .calculadora__IO--textarea {
+        font-size: var(--desktop-textarea);
+    }
+
+    /*Botones de la calculadora*/
+    .button--fixed,
+    .calculadora--button {
+        font-size: var(--desktop-font);
+    }
+}
