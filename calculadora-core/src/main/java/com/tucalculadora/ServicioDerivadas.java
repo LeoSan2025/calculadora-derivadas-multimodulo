@@ -37,6 +37,11 @@ public class ServicioDerivadas {
             ParserInterno parser = new ParserInterno(expr);
             NodoExpresion arbol = parser.expressionTree().simplificar();
 
+            String restante = expresion.substring(parser.getPosicionActual()).trim();
+            if (!restante.isEmpty()) {
+                throw new ParseError("Error de sintaxis: texto no reconocido -> '" + restante + "'");
+            }
+
             NodoExpresion derivada = arbol.derivar();
             NodoExpresion derivadaSimplificada = derivada.simplificar();
 

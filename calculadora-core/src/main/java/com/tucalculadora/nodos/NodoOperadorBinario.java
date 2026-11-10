@@ -305,15 +305,26 @@ public class NodoOperadorBinario extends NodoExpresion {
             case '+' -> izq + " + " + der;
             case '-' -> izq + " - " + der;
             case '*' -> {
-                // Si es número * variable, no mostrar punto de multiplicación
+                // 1. Verificamos si los lados izquierdo o derecho son sumas o restas
+                boolean izqEsSuma = izquierdo instanceof NodoOperadorBinario opIzq && (opIzq.operador == '+' || opIzq.operador == '-');
+                boolean derEsSuma = derecho instanceof NodoOperadorBinario opDer && (opDer.operador == '+' || opDer.operador == '-');
+
+                // 2. Preparamos los strings con o sin paréntesis
+                String izqFinal = izqEsSuma ? "\\left(" + izq + "\\right)" : izq;
+                String derFinal = derEsSuma ? "\\left(" + der + "\\right)" : der;
+
                 if (izquierdo instanceof NodoConstante && derecho instanceof NodoVariable) {
-                    yield izq + der;  // "2x" en lugar de "2*x"
+                    yield izqFinal + derFinal;  // "2x"
                 }
-                // Si es variable * número, mostrar con punto
+                if (izquierdo instanceof NodoConstante && (derecho instanceof NodoVariable || derEsSuma)) {
+                    yield izqFinal + derFinal;  // "2x" o "2(x+1)" sin el punto
+                }
                 if (izquierdo instanceof NodoVariable && derecho instanceof NodoConstante) {
-                    yield izq + " \\cdot " + der;  // "x · 2"
+                    yield izqFinal + " \\cdot " + derFinal;  // "x · 2"
                 }
-                yield izq + " \\cdot " + der;      // "x · y"
+
+                // Para el resto, usamos el punto centrado
+                yield izqFinal + " \\cdot " + derFinal;
             }
             case '/' -> "\\frac{" + izq + "}{" + der + "}";
             default -> izq + " " + operador + " " + der;

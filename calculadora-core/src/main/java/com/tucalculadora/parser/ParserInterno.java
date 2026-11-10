@@ -14,7 +14,6 @@ public class ParserInterno {
     // MÉTODOS DEL PARSER
     public NodoExpresion expressionTree() throws ParseError {
         skipBlanks();
-
         NodoExpresion term = termTree();
         skipBlanks();
 
@@ -24,6 +23,7 @@ public class ParserInterno {
             term = new NodoOperadorBinario(op, term, next);
             skipBlanks();
         }
+
         return term;
     }
 
@@ -33,8 +33,12 @@ public class ParserInterno {
         NodoExpresion factor = factorTree();
         skipBlanks();
 
-        while (peek() == '*' || peek() == '/') {
-            char op = getAnyChar();
+        while (peek() == '*' || peek() == '/' || peek() == 'x' || peek() == '(' || Character.isDigit(peek())) {
+            char op = '*'; // Por defecto es multiplicación
+            if (peek() == '*' || peek() == '/') {
+                op = getAnyChar(); // Si es explícito, lo consumimos
+            }
+
             NodoExpresion next = factorTree();
             factor = new NodoOperadorBinario(op, factor, next);
             skipBlanks();
@@ -65,6 +69,7 @@ public class ParserInterno {
         else if (peek() == '(') {
             getAnyChar();
             factor = expressionTree();
+            skipBlanks();
             if (peek() != ')') {
                 throw new ParseError("Falta ')'");
             }
@@ -124,6 +129,14 @@ public class ParserInterno {
             sb.append(getAnyChar());
         }
         return Double.parseDouble(sb.toString());
+    }
+
+    /**
+     * Devuelve la posición en la que se encuentra el parser.
+     * @return position
+     */
+    public int getPosicionActual() {
+        return this.posicion;
     }
 }
 
