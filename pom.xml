@@ -38,20 +38,20 @@
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-controls</artifactId>
-                <version>${javafx.version}</version>
+                <version>24.0.2</version>
                 <classifier>win</classifier> <!-- NUEVO -->
             </dependency>
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-swing</artifactId>
-                <version>${javafx.version}</version>
+                <version>24.0.2</version>
                 <classifier>win</classifier> <!-- NUEVO -->
             </dependency>
             <!-- Si usas fxml, añádelo también aquí -->
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-fxml</artifactId>
-                <version>${javafx.version}</version>
+                <version>24.0.2</version>
                 <classifier>win</classifier> <!-- NUEVO -->
             </dependency>
         </dependencies>
